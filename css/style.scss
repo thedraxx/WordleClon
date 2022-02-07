@@ -1,0 +1,32 @@
+//Import Font
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+// Color
+$black: #2C3333 ; 
+$white: #ffff;
+
+body {
+    background-color: $black;
+    color: $white;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.tittle{
+    font-family: 'Roboto', sans-serif;
+    font-size: 4rem;
+}
+
+
+.cell {
+    width:  100px;
+    height: 100px;
+    line-height: 100px;
+    border: 1px solid #aaa;
+    display: inline-block;
+    margin: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 5rem;
+    border-style:double;
+}
