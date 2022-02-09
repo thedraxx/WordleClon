@@ -21,9 +21,9 @@ buildGrid();
 
 // Word List 
 let wordList = [
-    'patio',
-    'darts',
-    'piano',
+    // 'patio',
+    // 'darts',
+    // 'piano',
     'horse',
 ];
 
@@ -32,17 +32,48 @@ let randomIndex = Math.floor(Math.random() * wordList.length);
 let secret = wordList[randomIndex];
 
 
-let attempts = []
+let attempts = ['roha']
 let currentAttempt = ''
 
-let counter = 0;
+updateGrid() 
+
 function updateGrid() {
-    for (let i = 0; i < 6; i++) {
-        let row = grid.children[i]
-        for (let j = 0; j < 5; j++) {
-            let cell = row.children[j]
-             
-        }
+    let row = grid.firstChild
+    for (let attempt of attempts) {
+        drawPastAttempt(row, attempt)
+        row = row.nextSibling
+    }
+    drawCurrentAttempt(row, currentAttempt)
+}
+
+function drawPastAttempt(row, attempt) {
+    for (let i = 0; i < 5; i++) {
+        let cell = row.children[i]
+        cell.textContent = attempt[i]
+        cell.style.backgroundColor = getBgColor(attempt, i)
     }
 }
 
+function drawCurrentAttempt(row, attempt) {
+    for (let i = 0; i < 5; i++) {
+        let cell = row.children[i]
+        cell.textContent = attempt[i] ?? ''
+
+    }
+}
+
+function getBgColor(attempt, i) {
+    let correctLatter = secret[i];
+    let attemptLatter = attempt[i];
+
+    if (!secret.indexOf(attemptLatter) === -1) {
+        return ' #787C7E'
+    }
+
+    if (correctLatter === attemptLatter) {
+        return '#6AAA64'
+    }
+
+    return '#C9B458'
+
+}
