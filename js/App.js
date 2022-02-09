@@ -35,7 +35,7 @@ let secret = wordList[randomIndex];
 let attempts = ['roha']
 let currentAttempt = ''
 
-updateGrid() 
+updateGrid()
 
 function updateGrid() {
     let row = grid.firstChild
@@ -49,7 +49,12 @@ function updateGrid() {
 function drawPastAttempt(row, attempt) {
     for (let i = 0; i < 5; i++) {
         let cell = row.children[i]
-        cell.textContent = attempt[i]
+        if (attempt[i] !== undefined) {
+            cell.textContent = attempt[i]
+        } else {
+            // The way that only makes the CSS not destroy the document
+            cell.innerHTML = '<div style = "opacity:0">X</div>'
+        }
         cell.style.backgroundColor = getBgColor(attempt, i)
     }
 }
@@ -66,14 +71,21 @@ function getBgColor(attempt, i) {
     let correctLatter = secret[i];
     let attemptLatter = attempt[i];
 
-    if (!secret.indexOf(attemptLatter) === -1) {
-        return ' #787C7E'
+    if (attemptLatter === undefined) {
+        return '#2C3333 ';
     }
 
-    if (correctLatter === attemptLatter) {
-        return '#6AAA64'
+    else if (secret.indexOf(attemptLatter) === -1)
+    {
+        return 'gray'
     }
 
-    return '#C9B458'
+    else if (correctLatter === attemptLatter) {
+        return '#6AAA64';
+    }
+
+    else {
+        return '#C9B458';
+    }
 
 }
