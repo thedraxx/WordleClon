@@ -32,16 +32,16 @@ let randomIndex = Math.floor(Math.random() * wordList.length);
 let secret = wordList[randomIndex];
 
 
-let attempts = ['roha']
+let attempts = ['roha'] //the words who usser introduce
 let currentAttempt = ''
 
 updateGrid()
 
 function updateGrid() {
-    let row = grid.firstChild
+    let row = grid.firstChild // First row
     for (let attempt of attempts) {
         drawPastAttempt(row, attempt)
-        row = row.nextSibling
+        row = row.nextSibling // Next row 
     }
     drawCurrentAttempt(row, currentAttempt)
 }
@@ -50,12 +50,12 @@ function drawPastAttempt(row, attempt) {
     for (let i = 0; i < 5; i++) {
         let cell = row.children[i]
         if (attempt[i] !== undefined) {
-            cell.textContent = attempt[i]
+            cell.textContent = attempt[i] //Put the word in the cell
         } else {
             // The way that only makes the CSS not destroy the document
             cell.innerHTML = '<div style = "opacity:0">X</div>'
         }
-        cell.style.backgroundColor = getBgColor(attempt, i)
+        cell.style.backgroundColor = getBgColor(attempt, i) //This function put the color in the cell
     }
 }
 
@@ -72,20 +72,20 @@ function getBgColor(attempt, i) {
     let attemptLatter = attempt[i];
 
     if (attemptLatter === undefined) {
-        return '#2C3333 ';
+        return '#2C3333 '; // Black
     }
 
-    else if (secret.indexOf(attemptLatter) === -1)
+    else if (secret.indexOf(attemptLatter) === -1) //If the letter of secret word doesnt find the letter of the attempt 
     {
         return 'gray'
     }
 
     else if (correctLatter === attemptLatter) {
-        return '#6AAA64';
+        return '#6AAA64'; //green
     }
 
     else {
-        return '#C9B458';
+        return '#C9B458'; // yellow
     }
 
 }
