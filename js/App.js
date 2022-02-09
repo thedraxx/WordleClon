@@ -1,7 +1,61 @@
+
+// input
+window.addEventListener('keydown', handleKeyDown);
+
+function handleKeyDown(e) {
+    let letter = e.key.toLowerCase();
+   
+    if (letter === 'enter') {
+        if (currentAttempt.length < 5) {
+            return alert('need more letters')
+        }
+        else if (!wordList.includes(currentAttempt)) {
+            alert('Nope are the same word');
+            return
+        }
+        history.push(currentAttempt);
+        currentAttempt = '';
+    }
+
+    else if (letter === 'backspace') {
+        currentAttempt = currentAttempt.slice(0, currentAttempt.length - 1)
+    }
+
+    else if (/[a-z]/.test(letter)){
+       if (currentAttempt.length < 5) {
+            currentAttempt += letter;
+       }
+    }
+
+    updateGrid();
+}
+
+
+// Word List 
+let wordList = [
+    'patio',
+    'piano',
+    'horse',
+    'hello',
+    'water',
+    'pizza',
+    'sushi',
+    'crabs',
+
+];
+
+// select a random word of wordlist
+let randomIndex = Math.floor(Math.random() * wordList.length);
+let secret = wordList[randomIndex];
+
+// The word who usser ACTUALLY introduce
+let currentAttempt = ''
+//the words who usser introduce
+let history = [];
+
 let grid = document.querySelector('#grid');
-
-
 buildGrid();
+updateGrid();
 
 // This create a Row and Files (Columns)
 function buildGrid() {
@@ -18,28 +72,9 @@ function buildGrid() {
 }
 
 
-// Word List 
-let wordList = [
-    // 'patio',
-    // 'darts',
-    // 'piano',
-    'horse',
-];
-
-// select a random word of wordlist
-let randomIndex = Math.floor(Math.random() * wordList.length);
-let secret = wordList[randomIndex];
-
-// The word who usser ACTUALLY introduce
-let currentAttempt = 'hello'
-//the words who usser introduce
-let attempts = ['rohas', 'harro']
-
-updateGrid();
-
 function updateGrid() {
     let row = grid.firstChild // First row
-    for (let attempt of attempts) {
+    for (let attempt of history) {
         drawAttempt(row, attempt, false)
         row = row.nextSibling // Next row 
     }
@@ -62,7 +97,6 @@ function drawAttempt(row, attempt, isCurrent) {
         }
     }
 }
-
 
 // function change color of the Grid
 function getBgColor(attempt, i) {
