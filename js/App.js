@@ -1,6 +1,7 @@
-
 let grid = document.querySelector('#grid');
 
+
+buildGrid();
 
 // This create a Row and Files (Columns)
 function buildGrid() {
@@ -16,8 +17,6 @@ function buildGrid() {
     }
 }
 
-buildGrid();
-
 
 // Word List 
 let wordList = [
@@ -31,42 +30,41 @@ let wordList = [
 let randomIndex = Math.floor(Math.random() * wordList.length);
 let secret = wordList[randomIndex];
 
+// The word who usser ACTUALLY introduce
+let currentAttempt = 'hello'
+//the words who usser introduce
+let attempts = ['rohas', 'harro']
 
-let attempts = ['roha'] //the words who usser introduce
-let currentAttempt = ''
-
-updateGrid()
+updateGrid();
 
 function updateGrid() {
     let row = grid.firstChild // First row
     for (let attempt of attempts) {
-        drawPastAttempt(row, attempt)
+        drawAttempt(row, attempt, false)
         row = row.nextSibling // Next row 
     }
-    drawCurrentAttempt(row, currentAttempt)
+    drawAttempt(row, currentAttempt, true)
 }
 
-function drawPastAttempt(row, attempt) {
+function drawAttempt(row, attempt, isCurrent) {
     for (let i = 0; i < 5; i++) {
         let cell = row.children[i]
         if (attempt[i] !== undefined) {
-            cell.textContent = attempt[i] //Put the word in the cell
+            cell.textContent = attempt[i] //Put the word attempt in the cell
         } else {
             // The way that only makes the CSS not destroy the document
             cell.innerHTML = '<div style = "opacity:0">X</div>'
         }
-        cell.style.backgroundColor = getBgColor(attempt, i) //This function put the color in the cell
+        if (isCurrent) {
+            cell.style.backgroundColor = '#2C3333 ';
+        } else {
+            cell.style.backgroundColor = getBgColor(attempt, i) //This function put the color in the cell
+        }
     }
 }
 
-function drawCurrentAttempt(row, attempt) {
-    for (let i = 0; i < 5; i++) {
-        let cell = row.children[i]
-        cell.textContent = attempt[i] ?? ''
 
-    }
-}
-
+// function change color of the Grid
 function getBgColor(attempt, i) {
     let correctLatter = secret[i];
     let attemptLatter = attempt[i];
@@ -89,3 +87,4 @@ function getBgColor(attempt, i) {
     }
 
 }
+
