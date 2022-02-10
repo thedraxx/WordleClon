@@ -7,11 +7,7 @@ function handleKeyDown(e) {
    
     if (letter === 'enter') {
         if (currentAttempt.length < 5) {
-            return alert('need more letters')
-        }
-        else if (!wordList.includes(currentAttempt)) {
-            alert('Nope are the same word');
-            return
+            return alert('need more letters');
         }
         history.push(currentAttempt);
         currentAttempt = '';
