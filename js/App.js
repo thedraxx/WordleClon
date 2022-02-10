@@ -3,24 +3,28 @@
 window.addEventListener('keydown', handleKeyDown);
 
 function handleKeyDown(e) {
+
     let letter = e.key.toLowerCase();
-   
+
     if (letter === 'enter') {
         if (currentAttempt.length < 5) {
             return alert('need more letters');
         }
-        history.push(currentAttempt);
-        currentAttempt = '';
+        else {
+            history.push(currentAttempt);
+            currentAttempt = '';
+        }
+
     }
 
     else if (letter === 'backspace') {
         currentAttempt = currentAttempt.slice(0, currentAttempt.length - 1)
     }
 
-    else if (/[a-z]/.test(letter)){
-       if (currentAttempt.length < 5) {
+    else if (/^[a-z]$/.test(letter)) {
+        if (currentAttempt.length < 5) {
             currentAttempt += letter;
-       }
+        }
     }
 
     updateGrid();
@@ -50,7 +54,10 @@ let currentAttempt = ''
 let history = [];
 
 let grid = document.querySelector('#grid');
+let keyboard = document.querySelector('#keyboard');
+
 buildGrid();
+buildKeyboard();
 updateGrid();
 
 // This create a Row and Files (Columns)
@@ -87,7 +94,7 @@ function drawAttempt(row, attempt, isCurrent) {
             cell.innerHTML = '<div style = "opacity:0">X</div>'
         }
         if (isCurrent) {
-            cell.style.backgroundColor = '#2C3333 ';
+            cell.style.backgroundColor = '#000000 ';
         } else {
             cell.style.backgroundColor = getBgColor(attempt, i) //This function put the color in the cell
         }
@@ -100,7 +107,7 @@ function getBgColor(attempt, i) {
     let attemptLatter = attempt[i];
 
     if (attemptLatter === undefined) {
-        return '#2C3333 '; // Black
+        return '#000000 '; // Black
     }
 
     else if (secret.indexOf(attemptLatter) === -1) //If the letter of secret word doesnt find the letter of the attempt 
@@ -118,3 +125,27 @@ function getBgColor(attempt, i) {
 
 }
 
+
+function buildKeyboard() {
+
+    buildKeyboardRow('qwertyuiop', false);
+    buildKeyboardRow('asdfghjkl', false);
+    buildKeyboardRow('zxcvbnm', true);
+
+}
+
+function buildKeyboardRow (letters) {
+
+    let row = document.createElement('div')
+    for (let letter of letters){
+        let button = document.createElement('button');
+        button.className = 'buttonKeyboard';
+        button.textContent = letter;
+        button.onClick = () => {
+            //todp
+        };
+        row.appendChild(button);
+    }
+    keyboard.appendChild(row)
+
+}

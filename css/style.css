@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 body {
-  background-color: #2C3333;
+  background-color: #000000;
   color: #ffff;
   font-family: sans-serif;
   text-align: center;
@@ -12,15 +12,36 @@ body {
 }
 
 .cell {
-  width: 100px;
-  height: 100px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 90px;
+  height: 90px;
   line-height: 100px;
-  border: 1px solid #aaa;
+  border: 1px solid #555555;
   display: inline-block;
   margin: 5px;
   text-transform: uppercase;
   text-align: center;
-  font-size: 5rem;
+  font-size: 3rem;
   border-style: double;
+}
+
+#keyboard {
+  margin-top: 50px;
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+}
+
+.buttonKeyboard {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  height: 4%;
+  margin: 4px;
+  padding: 20px;
+  border-radius: 3px;
+  border: none;
+  color: #ffff;
+  background-color: #6e6e6e;
 }
 /*# sourceMappingURL=style.css.map */
