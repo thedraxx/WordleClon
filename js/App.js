@@ -1,11 +1,14 @@
+let grid = document.querySelector('#grid');
+let keyboard = document.querySelector('#keyboard');
 
-// input
-window.addEventListener('keydown', handleKeyDown);
 
 function handleKeyDown(e) {
+   handleKey(e.key);
+}
 
-    let letter = e.key.toLowerCase();
 
+function handleKey(key){
+    let letter = key.toLowerCase();
     if (letter === 'enter') {
         if (currentAttempt.length < 5) {
             return alert('need more letters');
@@ -30,7 +33,6 @@ function handleKeyDown(e) {
     updateGrid();
 }
 
-
 // Word List 
 let wordList = [
     'patio',
@@ -53,12 +55,7 @@ let currentAttempt = ''
 //the words who usser introduce
 let history = [];
 
-let grid = document.querySelector('#grid');
-let keyboard = document.querySelector('#keyboard');
 
-buildGrid();
-buildKeyboard();
-updateGrid();
 
 // This create a Row and Files (Columns)
 function buildGrid() {
@@ -101,26 +98,32 @@ function drawAttempt(row, attempt, isCurrent) {
     }
 }
 
+const black = '#000000';
+const gray = '#686868';
+const green = '#6AAA64';
+const yellow = '#C9B458';
+
+
 // function change color of the Grid
 function getBgColor(attempt, i) {
     let correctLatter = secret[i];
     let attemptLatter = attempt[i];
 
     if (attemptLatter === undefined) {
-        return '#000000 '; // Black
+        return black; 
     }
 
     else if (secret.indexOf(attemptLatter) === -1) //If the letter of secret word doesnt find the letter of the attempt 
     {
-        return 'gray'
+        return gray
     }
 
     else if (correctLatter === attemptLatter) {
-        return '#6AAA64'; //green
+        return green ; 
     }
 
     else {
-        return '#C9B458'; // yellow
+        return yellow;
     }
 
 }
@@ -134,18 +137,52 @@ function buildKeyboard() {
 
 }
 
-function buildKeyboardRow (letters) {
+function buildKeyboardRow (letters,isLastRow) {
 
     let row = document.createElement('div')
+
+    if (isLastRow) {
+            let button = document.createElement('button');
+            button.className = 'buttonKeyboard';
+            button.textContent = 'Enter';
+            button.style.backgroundColor = gray;
+            button.onclick = () => {
+                handleKey('enter');
+            };
+            row.appendChild(button); 
+        keyboard.appendChild(row)
+    }
+
+
     for (let letter of letters){
         let button = document.createElement('button');
         button.className = 'buttonKeyboard';
         button.textContent = letter;
-        button.onClick = () => {
-            //todp
+        button.style.backgroundColor = gray;
+        button.onclick = () => {
+            handleKey(letter);
         };
         row.appendChild(button);
     }
     keyboard.appendChild(row)
 
+
+    if (isLastRow) {
+        let button = document.createElement('button');
+        button.className = 'buttonKeyboard';
+        button.textContent = '⌫';
+        button.style.backgroundColor = gray;
+        button.onclick = () => {
+            handleKey('backspace');
+        };
+        row.appendChild(button); 
+    keyboard.appendChild(row)
+    }
+
 }
+
+
+buildGrid();
+buildKeyboard();
+updateGrid();
+window.addEventListener('keydown', handleKeyDown); // input

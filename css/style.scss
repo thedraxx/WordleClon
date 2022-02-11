@@ -6,6 +6,7 @@ $black: #000000 ;
 $white: #ffff;
 $gray: #6e6e6e;
 
+
 body {
     background-color: $black;
     color: $white;
@@ -34,8 +35,6 @@ body {
 }
 
 
-
-
 #keyboard{
     margin-top: 50px;
     flex: none;
@@ -51,6 +50,7 @@ body {
     border: none;
     color: $white;
     background-color: $gray;
+    cursor: pointer;
  
 }
 
