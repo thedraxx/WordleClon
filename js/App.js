@@ -2,22 +2,54 @@ let grid = document.querySelector('#grid');
 let keyboard = document.querySelector('#keyboard');
 
 
+// Word List 
+let wordList = [
+    'patio',
+    'piano',
+    'horse',
+    'hello',
+    'water',
+    'pizza',
+    'sushi',
+    'crabs',
+
+];
+
+let secret = wordList[0];
+
+// The word who usser ACTUALLY introduce
+let currentAttempt = ''
+//the words who usser introduce
+let history = [];
+
+
 function handleKeyDown(e) {
     handleKey(e.key);
 }
 
-
 function handleKey(key) {
+    if (history.length === 6) {
+        return
+    }
     let letter = key.toLowerCase();
     if (letter === 'enter') {
         if (currentAttempt.length < 5) {
             return alert('need more letters');
         }
+
+        else if (history.length === 5 && currentAttempt !== secret) {
+            setTimeout(() => {
+                alert(secret)
+            }, 300);
+        }
+
         else {
             history.push(currentAttempt);
-            updateKeyBoard()
             currentAttempt = '';
+            updateKeyBoard();
+            saveGame();
         }
+
 
     }
 
@@ -34,28 +66,6 @@ function handleKey(key) {
     updateGrid();
 
 }
-
-// Word List 
-let wordList = [
-    'patio',
-    'piano',
-    'horse',
-    'hello',
-    'water',
-    'pizza',
-    'sushi',
-    'crabs',
-
-];
-
-// select a random word of wordlist
-let randomIndex = Math.floor(Math.random() * wordList.length);
-let secret = wordList[randomIndex];
-
-// The word who usser ACTUALLY introduce
-let currentAttempt = ''
-//the words who usser introduce
-let history = [];
 
 
 
@@ -185,32 +195,57 @@ function buildKeyboardRow(letters, isLastRow) {
 
 function getBetterColor(a, b) {
     if (a === green || b === green) {
-      return green
+        return green
     }
     if (a === yellow || b === yellow) {
-      return yellow
+        return yellow
     }
     return gray
-  }
-  
-  function updateKeyBoard() {
+}
+
+function updateKeyBoard() {
     let bestColors = new Map()
     for (let attempt of history) {
-      for (let i = 0; i < attempt.length; i++) {
-        let color = getBgColor(attempt, i)
-        let key = attempt[i]
-        let bestColor = bestColors.get(key)
-        bestColors.set(key, getBetterColor(color, bestColor))
-      }
+        for (let i = 0; i < attempt.length; i++) {
+            let color = getBgColor(attempt, i)
+            let key = attempt[i]
+            let bestColor = bestColors.get(key)
+            bestColors.set(key, getBetterColor(color, bestColor))
+        }
     }
     for (let [key, button] of keyboardButtons) {
-      button.style.backgroundColor = bestColors.get(key)
-      button.style.borderColor = bestColors.get(key)
+        button.style.backgroundColor = bestColors.get(key)
+        button.style.borderColor = bestColors.get(key)
     }
-  }
+}
+
+
+function loadGame() {
+    let data
+    try {
+        data = JSON.parse(localStorage.getItem('data'))
+    } catch { }
+    if (data != null) {
+        if (data.secret === secret) {
+            history = data.history;
+        }
+    }
+}
+
+//LocalStorage
+function saveGame() {
+    let data = JSON.stringify({
+        secret,
+        history
+    })
+    try {
+        localStorage.setItem('data', data)
+    }
+    catch { }
+}
 
 let keyboardButtons = new Map();
-
+loadGame();
 buildGrid();
 buildKeyboard();
 updateGrid();
