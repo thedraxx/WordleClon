@@ -50,18 +50,29 @@ function handleKey(key) {
             animateShake(currentAttempt.length)
             
         } else if (history.length === 5 && currentAttempt !== secret) {
- 
-            setTimeout(() => {
-                navbar.innerHTML = `
-                <div class="alert">
-                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                <p> Bad Lucky..</p> The secret word is: ${secret} 
-                refresh the page to try again!
-              </div> `
-                
-            }, 100);
+            history.push(currentAttempt);
+            currentAttempt = '';  
+            updateKeyBoard();
+            saveGame();
 
-        } else {
+            setTimeout(() => {
+                Swal.fire({
+                    title: `ඞ you are lost  the secreto word it's... ${secret}`,
+                    width: 600,
+                    padding: '3em',
+                    color: '#716add',
+                    background: '#fff url(/images/trees.png)',
+                    backdrop: `
+                      rgba(0,0,123,0.4)
+                      url("/img/nyan-cat.gif")
+                      left top
+                      no-repeat
+                    `
+                  })
+            }, 100);
+        } 
+        
+       else {
             history.push(currentAttempt);
             currentAttempt = '';
             updateKeyBoard();
@@ -272,6 +283,7 @@ function saveGame() {
     let data = JSON.stringify({
         secret,
         history,
+    
         
     })
     try {

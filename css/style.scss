@@ -5,6 +5,7 @@
 $black: #000000 ; 
 $white: #ffff;
 $gray: #6e6e6e;
+$alert: #950000;
 
 *{
     font-family:  sans-serif;
@@ -49,43 +50,21 @@ body {
     border-style:double;
 }
 
-.cell > .front, cell > .back {
-    border: 2px solid #444;
-    
-}
-
-.cell > .front {
-    display: none;
-}
-
-.cell > .back {
-    display: display;
-    
-}
-
-.cell.current > .front{
-    display: block;
-}
-
-.cell.current > .back{
-    display: none;
-}
-
 
 
 #keyboard{
-    margin-top: 30px;
+    margin-top: 250px;
     flex: none;
     width: 100%;
-    position: absolute;
+    position:static;
 }
 
 .buttonKeyboard{
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 25px;
     height: 1%;
     margin: 2px;
-    padding: 8px;
+    padding: 13px;
     border-radius: 3px;
     border: none;
     color: $white;
@@ -95,12 +74,26 @@ body {
 
 }
 
+.container{
+    width: 100%;
+    max-width: var(--game-max-width);
+    margin: 0 auto;
+    height: calc(100% - var(--header-height));
+    display: flex;
+    flex-direction: column;
+}
+
  /* The alert message box */
  .alert {
-    padding: 30px;
-    background-color: #f44336; /* Red */
-    color: white;
+    
+    padding: 50px;
+    background-color: $alert; /* Red */
+    color: $black;
     margin-bottom: 15px;
+    text-align: center;
+    font-size: 1rem;
+    text-decoration: solid;
+
   }
   
   /* The close button */
