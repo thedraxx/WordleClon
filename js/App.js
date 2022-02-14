@@ -57,7 +57,7 @@ function handleKey(key) {
 
             setTimeout(() => {
                 Swal.fire({
-                    title: `ඞ you are lost  the secreto word it's... ${secret}`,
+                    title: `ඞ you are lost  the secreto word it's... ${secret} refresh page to play again`,
                     width: 600,
                     padding: '3em',
                     color: '#716add',
@@ -69,6 +69,8 @@ function handleKey(key) {
                       no-repeat
                     `
                   })
+
+                  localStorage.clear();
             }, 100);
         } 
         
