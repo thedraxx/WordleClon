@@ -27,9 +27,8 @@ let wordList = [
 ];
 
 // select a word of wordlist
-let random = Math.floor(Math.random(wordList.length) * 7);
-let secret = wordList[random];
-console.log(secret);
+let secret = wordList[1];
+
 
 // The word who usser ACTUALLY introduce
 let currentAttempt = ''
@@ -272,7 +271,8 @@ function loadGame() {
 function saveGame() {
     let data = JSON.stringify({
         secret,
-        history
+        history,
+        
     })
     try {
         localStorage.setItem('data', data)
