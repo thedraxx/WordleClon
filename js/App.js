@@ -1,7 +1,9 @@
 
 // Selectors
-let grid = document.querySelector('#grid');
-let keyboard = document.querySelector('#keyboard');
+const grid = document.querySelector('#grid');
+const keyboard = document.querySelector('#keyboard');
+const navbar = document.querySelector('.navbar');
+
 
 // Colors 
 const black = '#000000';
@@ -24,8 +26,10 @@ let wordList = [
     'crabs',
 ];
 
-// Thus
-let secret = wordList[0];
+// select a word of wordlist
+let random = Math.floor(Math.random(wordList.length) * 7);
+let secret = wordList[random];
+console.log(secret);
 
 // The word who usser ACTUALLY introduce
 let currentAttempt = ''
@@ -45,9 +49,19 @@ function handleKey(key) {
         if (currentAttempt.length < 5) {
             return alert('need more letters');
         } else if (history.length === 5 && currentAttempt !== secret) {
+            history.push(currentAttempt);
+            updateKeyBoard();
+
             setTimeout(() => {
-                alert(secret)
-            }, 300);
+                navbar.innerHTML = `
+                <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <p> Bad Lucky..</p> The secret word is: ${secret} 
+                refresh the page to try again!
+              </div> `
+                localStorage.clear();
+            }, 100);
+
         } else {
             history.push(currentAttempt);
             currentAttempt = '';
@@ -240,6 +254,7 @@ function loadGame() {
     if (data != null) {
         if (data.secret === secret) {
             history = data.history;
+            
         }
     }
 }

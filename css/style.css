@@ -1,8 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  font-family: sans-serif;
+}
+
 body {
   background-color: #000000;
   color: #ffff;
-  font-family: sans-serif;
   text-align: center;
 }
 
@@ -82,6 +85,33 @@ body {
   cursor: pointer;
   -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s;
+}
+
+/* The alert message box */
+.alert {
+  padding: 30px;
+  background-color: #f44336;
+  /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
 }
 
 @-webkit-keyframes press {
