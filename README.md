@@ -39,7 +39,7 @@ E-mail: cerrano.francisco22@gmail.com
 
 * After each guess, the color of the tiles will change to show how close your guess was to the word.
 
-* If you win or lost, please clean local storage manually for reset the game.
+* If you win, please clean local storage manually for reset the game.
 
 ## 📝 Licence
 
