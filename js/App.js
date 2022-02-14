@@ -1,5 +1,15 @@
+
+// Selectors
 let grid = document.querySelector('#grid');
 let keyboard = document.querySelector('#keyboard');
+
+// Colors 
+const black = '#000000';
+const gray = '#686868';
+const darkgray = '#3a3a3a'
+const green = '#6AAA64';
+const yellow = '#C9B458';
+const lightgray = '#b4b4b4';
 
 
 // Word List 
@@ -12,16 +22,15 @@ let wordList = [
     'pizza',
     'sushi',
     'crabs',
-
 ];
 
+// Thus
 let secret = wordList[0];
 
 // The word who usser ACTUALLY introduce
 let currentAttempt = ''
 //the words who usser introduce
 let history = [];
-
 
 function handleKeyDown(e) {
     handleKey(e.key);
@@ -35,22 +44,16 @@ function handleKey(key) {
     if (letter === 'enter') {
         if (currentAttempt.length < 5) {
             return alert('need more letters');
-        }
-
-        else if (history.length === 5 && currentAttempt !== secret) {
+        } else if (history.length === 5 && currentAttempt !== secret) {
             setTimeout(() => {
                 alert(secret)
             }, 300);
-        }
-
-        else {
+        } else {
             history.push(currentAttempt);
             currentAttempt = '';
             updateKeyBoard();
             saveGame();
         }
-
-
     }
 
     else if (letter === 'backspace') {
@@ -60,14 +63,12 @@ function handleKey(key) {
     else if (/^[a-z]$/.test(letter)) {
         if (currentAttempt.length < 5) {
             currentAttempt += letter;
+            animatePress(currentAttempt.length - 1)
         }
     }
 
     updateGrid();
-
 }
-
-
 
 // This create a Row and Files (Columns)
 function buildGrid() {
@@ -83,7 +84,6 @@ function buildGrid() {
     }
 }
 
-
 function updateGrid() {
     let row = grid.firstChild // First row
     for (let attempt of history) {
@@ -96,26 +96,30 @@ function updateGrid() {
 function drawAttempt(row, attempt, isCurrent) {
     for (let i = 0; i < 5; i++) {
         let cell = row.children[i]
+
         if (attempt[i] !== undefined) {
-            cell.textContent = attempt[i] //Put the word attempt in the cell
-        } else {
+            cell.innerHTML = `<h1 class = 'word'> ${attempt[i]} </h1> `//Put the word attempt in the cell
+        } 
+        
+        else {
             // The way that only makes the CSS not destroy the document
-            cell.innerHTML = '<div style = "opacity:0">X</div>'
+            cell.innerHTML = '<div style = "opacity:0"></div>'
+            clearAnimate(cell);
         }
+
         if (isCurrent) {
-            cell.style.backgroundColor = '#000000 ';
-        } else {
+            
+            cell.style.borderColor = '';
+            if (attempt[i] !== undefined) {
+                cell.style.borderColor = lightgray;
+            }
+        } 
+        
+        else {
             cell.style.backgroundColor = getBgColor(attempt, i) //This function put the color in the cell
         }
     }
 }
-
-const black = '#000000';
-const gray = '#686868';
-const darkgray = '#3a3a3a'
-const green = '#6AAA64';
-const yellow = '#C9B458';
-
 
 // function change color of the Grid
 function getBgColor(attempt, i) {
@@ -141,7 +145,6 @@ function getBgColor(attempt, i) {
 
 }
 
-
 function buildKeyboard() {
     buildKeyboardRow('qwertyuiop', false);
     buildKeyboardRow('asdfghjkl', false);
@@ -164,7 +167,6 @@ function buildKeyboardRow(letters, isLastRow) {
         keyboard.appendChild(row)
     }
 
-
     for (let letter of letters) {
         let button = document.createElement('button');
         button.className = 'buttonKeyboard';
@@ -178,7 +180,6 @@ function buildKeyboardRow(letters, isLastRow) {
     }
     keyboard.appendChild(row)
 
-
     if (isLastRow) {
         let button = document.createElement('button');
         button.className = 'buttonKeyboard';
@@ -190,7 +191,6 @@ function buildKeyboardRow(letters, isLastRow) {
         row.appendChild(button);
         keyboard.appendChild(row)
     }
-
 }
 
 function getBetterColor(a, b) {
@@ -200,7 +200,7 @@ function getBetterColor(a, b) {
     if (a === yellow || b === yellow) {
         return yellow
     }
-    return gray
+    return darkgray
 }
 
 function updateKeyBoard() {
@@ -219,6 +219,18 @@ function updateKeyBoard() {
     }
 }
 
+function animatePress(index) {
+    let rowIndex = history.length
+    let row = grid.children[rowIndex]
+    let cell = row.children[index]
+    cell.style.animationName = 'press';
+    cell.style.animationDuration = '0.5s';
+}
+
+function clearAnimate(cell) {
+    cell.style.animationName = '';
+    cell.style.animationDuration = '';
+}
 
 function loadGame() {
     let data
