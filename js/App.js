@@ -47,11 +47,11 @@ function handleKey(key) {
     let letter = key.toLowerCase();
     if (letter === 'enter') {
         if (currentAttempt.length < 5) {
-            return alert('need more letters');
+            // return alert('need more letters');
+            animateShake(currentAttempt.length)
+            
         } else if (history.length === 5 && currentAttempt !== secret) {
-            history.push(currentAttempt);
-            updateKeyBoard();
-
+ 
             setTimeout(() => {
                 navbar.innerHTML = `
                 <div class="alert">
@@ -59,7 +59,7 @@ function handleKey(key) {
                 <p> Bad Lucky..</p> The secret word is: ${secret} 
                 refresh the page to try again!
               </div> `
-                localStorage.clear();
+                
             }, 100);
 
         } else {
@@ -83,6 +83,7 @@ function handleKey(key) {
 
     updateGrid();
 }
+
 
 // This create a Row and Files (Columns)
 function buildGrid() {
@@ -244,6 +245,14 @@ function animatePress(index) {
 function clearAnimate(cell) {
     cell.style.animationName = '';
     cell.style.animationDuration = '';
+}
+
+function animateShake() {
+    grid.style.animationName = 'shake';
+    grid.style.animationDuration = '0.5s';
+    setTimeout(() => {
+        grid.removeAttribute('style');
+    }, 500);
 }
 
 function loadGame() {
