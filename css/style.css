@@ -43,6 +43,20 @@ body {
   border-style: double;
 }
 
+.container {
+  width: 100%;
+  max-width: var(--game-max-width);
+  margin: 0 auto;
+  height: calc(100% - var(--header-height));
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 #keyboard {
   margin-top: 250px;
   -webkit-box-flex: 0;
@@ -65,20 +79,6 @@ body {
   cursor: pointer;
   -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s;
-}
-
-.container {
-  width: 100%;
-  max-width: var(--game-max-width);
-  margin: 0 auto;
-  height: calc(100% - var(--header-height));
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
 /* The alert message box */
@@ -239,6 +239,37 @@ body {
   100% {
     -webkit-transform: translate(1px, -2px) rotate(-1deg);
             transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@media (max-width: 500px) {
+  #keyboard {
+    margin-top: 50px;
+    -webkit-box-flex: 0;
+        -ms-flex: none;
+            flex: none;
+    width: 100%;
+    position: static;
+  }
+  .buttonKeyboard {
+    width: 8%;
+    text-transform: uppercase;
+    font-size: 10px;
+    height: 1%;
+    margin: 1px;
+    padding: 4%;
+    border-radius: 5px;
+    border: none;
+    color: #ffff;
+    background-color: #6e6e6e;
+    cursor: pointer;
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
   }
 }
 /*# sourceMappingURL=style.css.map */

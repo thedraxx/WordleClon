@@ -57,7 +57,7 @@ function handleKey(key) {
 
             setTimeout(() => {
                 Swal.fire({
-                    title: `ඞ you are lost  the secreto word it's... ${secret} refresh page to play again`,
+                    title: ` <p> ඞ you are lost.</p> the secret word it's... " ${secret} " <p>refresh page to play again</p>`,
                     width: 600,
                     padding: '3em',
                     color: '#716add',
@@ -185,7 +185,7 @@ function buildKeyboardRow(letters, isLastRow) {
     if (isLastRow) {
         let button = document.createElement('button');
         button.className = 'buttonKeyboard';
-        button.textContent = 'Enter';
+        button.textContent = 'Go';
         button.style.backgroundColor = gray;
         button.onclick = () => {
             handleKey('enter');
