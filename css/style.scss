@@ -14,7 +14,6 @@ $alert: #950000;
 body {
     background-color: $black;
     color: $white;
-   
     text-align: center;
 }
 
@@ -60,7 +59,7 @@ body {
 }
 
 #keyboard{
-    margin-top: 250px;
+    margin-top: 100px;
     flex: none;
     width: 100%;
     position:static;
@@ -81,32 +80,7 @@ body {
 
 }
 
- /* The alert message box */
- .alert {
-    padding: 50px;
-    background-color: $alert; /* Red */
-    color: $black;
-    margin-bottom: 15px;
-    text-align: center;
-    font-size: 1rem;
-    text-decoration: solid;
-  }
-  
-  /* The close button */
-  .closebtn {
-    margin-left: 15px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 22px;
-    line-height: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  /* When moving the mouse over the close button */
-  .closebtn:hover {
-    color: black;} 
+
   
   @keyframes press {
     from{
@@ -141,6 +115,16 @@ body {
 
 @media (max-width: 500px) {
       
+    .word{
+        color: $white;
+        font-size: 1rem;
+        flex: auto;
+        position:absolute;
+        margin: -24px;
+        margin-left: 17px;
+        padding: 0px;
+        text-align: center;
+    }
 
     #keyboard{
         margin-top: 50px;
@@ -150,9 +134,9 @@ body {
     }
     
     .buttonKeyboard{
-        width: 8%;
+        width: 9%;
         text-transform: uppercase;
-        font-size: 10px;
+        font-size:9px;
         height: 1%;
         margin: 1px;
         padding: 4%;
@@ -162,7 +146,6 @@ body {
         background-color: $gray;
         cursor: pointer;
         animation-duration: 0.5s;
-        text-align: center;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         -ms-border-radius: 5px;
@@ -170,4 +153,4 @@ body {
 }
     
     
-    }
+}

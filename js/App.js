@@ -46,9 +46,7 @@ function handleKey(key) {
     let letter = key.toLowerCase();
     if (letter === 'enter') {
         if (currentAttempt.length < 5) {
-            // return alert('need more letters');
             animateShake(currentAttempt.length)
-            
         } else if (history.length === 5 && currentAttempt !== secret) {
             history.push(currentAttempt);
             currentAttempt = '';  
@@ -57,8 +55,8 @@ function handleKey(key) {
 
             setTimeout(() => {
                 Swal.fire({
-                    title: ` <p> ඞ you are lost.</p> the secret word it's... " ${secret} " <p>refresh page to play again</p>`,
-                    width: 600,
+                    title: ` <p> ඞ You lost.</p> The secret word it's... " ${secret} " <p>Refresh page to play again</p>`,
+                    width: 400,
                     padding: '3em',
                     color: '#716add',
                     background: '#fff url(/images/trees.png)',
@@ -69,10 +67,30 @@ function handleKey(key) {
                       no-repeat
                     `
                   })
-
                   localStorage.clear();
             }, 100);
-        } 
+        }
+        
+    else if(currentAttempt === secret){
+        history.push(currentAttempt);
+        currentAttempt = '';
+        updateKeyBoard();
+        setTimeout(() => {
+            Swal.fire({
+                title: ` <p> ඞ You win. <p>refresh page to play again</p>`,
+                width: 400,
+                padding: '3em',
+                color: '#716add',
+                background: '#fff url(/images/trees.png)',
+                backdrop: `
+                  rgba(0,0,123,0.4)
+                  left top
+                  no-repeat
+                `
+              })
+              localStorage.clear();
+        }, 100);
+    }    
         
        else {
             history.push(currentAttempt);
@@ -185,7 +203,7 @@ function buildKeyboardRow(letters, isLastRow) {
     if (isLastRow) {
         let button = document.createElement('button');
         button.className = 'buttonKeyboard';
-        button.textContent = 'Go';
+        button.textContent = '↲';
         button.style.backgroundColor = gray;
         button.onclick = () => {
             handleKey('enter');
