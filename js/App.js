@@ -27,8 +27,8 @@ let wordList = [
 ];
 
 // select a word of wordlist
-let secret = wordList[1];
 
+let secret = wordList[5];
 
 // The word who usser ACTUALLY introduce
 let currentAttempt = ''
@@ -49,13 +49,13 @@ function handleKey(key) {
             animateShake(currentAttempt.length)
         } else if (history.length === 5 && currentAttempt !== secret) {
             history.push(currentAttempt);
-            currentAttempt = '';  
+            currentAttempt = '';
             updateKeyBoard();
             saveGame();
 
             setTimeout(() => {
                 Swal.fire({
-                    title: ` <p> ඞ You lost.</p> The secret word it's... " ${secret} " <p>Refresh page to play again</p>`,
+                    title: ` <p> ඞ You lost.</p> The secret word it's... "${secret}" <p>`,
                     width: 400,
                     padding: '3em',
                     color: '#716add',
@@ -66,33 +66,35 @@ function handleKey(key) {
                       left top
                       no-repeat
                     `
-                  })
-                  localStorage.clear();
+                })
+                const button = document.querySelector('.swal2-actions');
+                button.addEventListener('click', handleClick)
             }, 100);
         }
-        
-    else if(currentAttempt === secret){
-        history.push(currentAttempt);
-        currentAttempt = '';
-        updateKeyBoard();
-        setTimeout(() => {
-            Swal.fire({
-                title: ` <p> ඞ You win. <p>refresh page to play again</p>`,
-                width: 400,
-                padding: '3em',
-                color: '#716add',
-                background: '#fff url(/images/trees.png)',
-                backdrop: `
+
+        else if (currentAttempt === secret) {
+            history.push(currentAttempt);
+            currentAttempt = '';
+            updateKeyBoard();
+            setTimeout(() => {
+                Swal.fire({
+                    title: ` <p> ඞ You win.</p>`,
+                    width: 400,
+                    padding: '3em',
+                    color: '#716add',
+                    background: '#fff url(/images/trees.png)',
+                    backdrop: `
                   rgba(0,0,123,0.4)
                   left top
                   no-repeat
                 `
-              })
-              localStorage.clear();
-        }, 100);
-    }    
-        
-       else {
+                })
+                const button = document.querySelector('.swal2-actions');
+                button.addEventListener('click', handleClick)
+            }, 100);   
+        }
+
+        else {
             history.push(currentAttempt);
             currentAttempt = '';
             updateKeyBoard();
@@ -144,8 +146,8 @@ function drawAttempt(row, attempt, isCurrent) {
 
         if (attempt[i] !== undefined) {
             cell.innerHTML = `<h1 class = 'word'> ${attempt[i]} </h1> `//Put the word attempt in the cell
-        } 
-        
+        }
+
         else {
             // The way that only makes the CSS not destroy the document
             cell.innerHTML = '<div style = "opacity:0"></div>'
@@ -153,13 +155,13 @@ function drawAttempt(row, attempt, isCurrent) {
         }
 
         if (isCurrent) {
-            
+
             cell.style.borderColor = '';
             if (attempt[i] !== undefined) {
                 cell.style.borderColor = lightgray;
             }
-        } 
-        
+        }
+
         else {
             cell.style.backgroundColor = getBgColor(attempt, i) //This function put the color in the cell
         }
@@ -293,7 +295,7 @@ function loadGame() {
     if (data != null) {
         if (data.secret === secret) {
             history = data.history;
-            
+
         }
     }
 }
@@ -303,8 +305,6 @@ function saveGame() {
     let data = JSON.stringify({
         secret,
         history,
-    
-        
     })
     try {
         localStorage.setItem('data', data)
@@ -319,3 +319,7 @@ buildKeyboard();
 updateGrid();
 
 window.addEventListener('keydown', handleKeyDown); // input
+function handleClick() {
+    localStorage.clear();
+    location.reload()
+}
