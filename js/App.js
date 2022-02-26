@@ -24,11 +24,23 @@ let wordList = [
     'pizza',
     'sushi',
     'crabs',
+    'Music',
+    'Novel',
+    'Place',
+    'Scene',
+    'Steam',
 ];
 
-// select a word of wordlist
+//random number
+function random(min, max) {
+   const value = Math.floor((Math.random() * (max - min + 1)) + min);
+    return value;
+}
 
-let secret = wordList[5];
+let valueRandom = random(0,12);
+
+// select a random word of wordlist
+let secret = wordList[valueRandom];
 
 // The word who usser ACTUALLY introduce
 let currentAttempt = ''
@@ -51,7 +63,7 @@ function handleKey(key) {
             history.push(currentAttempt);
             currentAttempt = '';
             updateKeyBoard();
-            saveGame();
+            // saveGame();
 
             setTimeout(() => {
                 Swal.fire({
@@ -98,7 +110,7 @@ function handleKey(key) {
             history.push(currentAttempt);
             currentAttempt = '';
             updateKeyBoard();
-            saveGame();
+            // saveGame();
         }
     }
 
@@ -284,36 +296,38 @@ function animateShake() {
     grid.style.animationDuration = '0.5s';
     setTimeout(() => {
         grid.removeAttribute('style');
-    }, 500);
+    }, 200);
 }
 
-function loadGame() {
-    let data
-    try {
-        data = JSON.parse(localStorage.getItem('data'))
-    } catch { }
-    if (data != null) {
-        if (data.secret === secret) {
-            history = data.history;
 
-        }
-    }
-}
+//LocalStorage (Doesen't work)
+// function loadGame() {
+//     let data
+//     try {
+//         data = JSON.parse(localStorage.getItem('data'))
+//     } catch { }
+    
+//     if (data != null) {
+//         if (data.secret === secret) {
+//             history = data.history;
+//         }
+//     }
+// }
 
-//LocalStorage
-function saveGame() {
-    let data = JSON.stringify({
-        secret,
-        history,
-    })
-    try {
-        localStorage.setItem('data', data)
-    }
-    catch { }
-}
+// function saveGame() {
+//     let data = JSON.stringify({
+//         secret,
+//         history,   
+//     })
+//     try {
+//         localStorage.setItem('data', data)
+//     }
+//     catch { }
+// }
+
 
 let keyboardButtons = new Map();
-loadGame();
+// loadGame();
 buildGrid();
 buildKeyboard();
 updateGrid();
